@@ -31,5 +31,22 @@ function updatePorfolioShares() {
 }
 
 function calculateROI() {
-    
+    $.getJSON(frontURL, function (currData) {
+        for (var i = 0; i < porfolioShares.length; i++) {
+            if (porfolioShares[i] > 0) {
+                (function (i) {
+                    $.ajax({
+                        url: history24URL + currencyShort[i],
+                        dataType: "json",
+                        async: false,
+                        success: function (histData) {
+                            var currPrice = getCurrentPrice(currencyShort[i], currData);
+                            initialInvestment += histData.price[0][1] * porfolioShares[i];
+                            currInvestmentTotal += currPrice * porfolioShares[i];
+                        }
+                    });
+                })(i);
+            }
+        }
+    });
 }

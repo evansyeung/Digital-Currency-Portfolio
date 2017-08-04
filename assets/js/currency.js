@@ -31,15 +31,19 @@ function updatePorfolioShares() {
 }
 
 function getCurrentPrice(short, list) {
-  for (var i = 0; i < list.length; i++) {
-    if (list[i].short === short) {
-      return list[i].price;
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].short === short) {
+            return list[i].price;
+        }
     }
-  }
-  return -1;
+    return -1;
 }
 
 function calculateROI() {
+    var initialInvestment = 0;
+    var currInvestmentTotal = 0;
+    var overallROI = 0;
+
     $.getJSON(frontURL, function (currData) {
         for (var i = 0; i < porfolioShares.length; i++) {
             if (porfolioShares[i] > 0) {
@@ -56,6 +60,14 @@ function calculateROI() {
                     });
                 })(i);
             }
+        }
+
+        var overallROI = (currInvestmentTotal - initialInvestment) / initialInvestment * 100;
+        $("#percentage").html(Math.round(overallROI * 100) / 100 + "%");
+        if (overallROI > 0) {
+            $("#percentage").css("color", "green");
+        } else {
+            $("#percentage").css("color", "red");
         }
     });
 }

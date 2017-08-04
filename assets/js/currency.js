@@ -30,6 +30,15 @@ function updatePorfolioShares() {
     }
 }
 
+function getCurrentPrice(short, list) {
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].short === short) {
+      return list[i].price;
+    }
+  }
+  return -1;
+}
+
 function calculateROI() {
     $.getJSON(frontURL, function (currData) {
         for (var i = 0; i < porfolioShares.length; i++) {

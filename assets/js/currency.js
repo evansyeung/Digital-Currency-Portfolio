@@ -12,11 +12,13 @@ var currencyShort = [
 ];
 
 var porfolioShares = [];
-
+var frontURL = "https://www.coincap.io/front";
+var history24URL = "https://www.coincap.io/history/1day/";
 
 $(document).ready(function () {
     $("#submit").on("click", function () {
         updatePorfolioShares();
+        calculateROI();
     });
 });
 
@@ -26,4 +28,8 @@ function updatePorfolioShares() {
     for (var i = 0; i < inputList.length; i++) {
         porfolioShares.push(inputList[i].value);
     }
+}
+
+function calculateROI() {
+    
 }
